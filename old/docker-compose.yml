@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  nginx:
+    # image: ubuntu:20.04
+    build:
+      context: ./
+      args:
+        UID: ${UID:-0}
+        GID: ${GID:-0}
+    ports:
+      - "${BIND_IP_ADDR:-127.0.0.1}:1935:1935"
+      - "${BIND_IP_ADDR:-127.0.0.1}:80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    command: /usr/local/nginx/sbin/nginx -g "daemon off;"
